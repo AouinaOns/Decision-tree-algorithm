@@ -7,7 +7,7 @@ Scikit-learn (http://scikit-learn.org/stable/install.html)
 numpy (pip install numpy)
 
 # You might need to install the pydotplus and graphviz libraries if you have not installed these before
-conda install -c conda-forge pydotplus -y
+conda install -c conda-forge pydotplus -y  <br/>
 conda install -c conda-forge python-graphviz -y
 
 Visualization of the tree
