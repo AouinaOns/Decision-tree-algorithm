@@ -1,10 +1,16 @@
+from tkinter import Image
+from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import preprocessing
-from sklearn.model_selection import train_test_split
 from sklearn import metrics
-import matplotlib.pyplot as plt
+from io import StringIO
+import pydotplus
+import matplotlib.image as mpimg
+from sklearn import tree
+from sklearn import tree
+from sklearn.model_selection import train_test_split
 
 #Using my_data as the Drug.csv data read by pandas
 my_data = pd.read_csv("drug200.csv", delimiter=",")
@@ -48,5 +54,16 @@ print (y_testset [0:5])
 
 #Evaluation: check the accuracy of our model
 print("DecisionTrees's Accuracy using  sklearn: ", metrics.accuracy_score(y_testset, predTree))
-print("DecisionTrees's Accuracy using numpy: ",acc=np.mean(y_testset==predTree))
+print("DecisionTrees's Accuracy using numpy: ",np.mean(y_testset==predTree))
 
+dot_data = StringIO()
+filename = "drugtree.png"
+featureNames = my_data.columns[0:5]
+targetNames = my_data["Drug"].unique().tolist()
+out=tree.export_graphviz(drugTree,feature_names=featureNames, out_file=dot_data, class_names= np.unique(y_trainset), filled=True,  special_characters=True,rotate=False)
+graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
+graph.write_png(filename)
+img = mpimg.imread(filename)
+plt.figure(figsize=(50, 100))
+plt.imshow(img,interpolation='nearest')
+plt.show()
